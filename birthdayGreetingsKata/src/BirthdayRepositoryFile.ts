@@ -25,7 +25,6 @@ export class BirthdayRepositoryFile implements BirthdayRepository {
 
   private parseToObject(dataString: string): Friend[] {
     const lines = dataString.split('\n');
-    // const keys = lines[0].split(',').map(key => key.trim());
 
     const objects: Friend[] = [];
 

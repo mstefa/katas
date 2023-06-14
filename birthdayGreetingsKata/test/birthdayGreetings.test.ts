@@ -12,10 +12,12 @@ describe('test ohce', () => {
     // const name = "testName"
     // ohce(name)
 
-    const obj = {a: 2, b:{
-      c:4
-    }}
-    expect(obj).toEqual({a: 2, b:{c:4}})
+    const obj = {
+      a: 2, b: {
+        c: 4
+      }
+    }
+    expect(obj).toEqual({ a: 2, b: { c: 4 } })
 
   })
 })
