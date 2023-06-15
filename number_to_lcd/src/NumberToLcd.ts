@@ -1,20 +1,21 @@
 export class NumberToLcd {
+  private cero = '   \n  |\n  |';
+  private one = '   \n  |\n  |';
+  private two = ' _ \n _|\n|_ '
+  private digits = [this.cero, this.one, this.two]
   constructor() {
   }
 
   convert(num: number) {
 
-    const one = '   \n  |\n  |';
-    const two = ' _ \n _|\n|_ '
-    const digits = [one, two]
 
     if (num < 10) {
-      const output = digits[num - 1];
+      const output = this.digits[num];
       console.log(output)
       return output;
     }
     const digitArray = this.getEachDigitFromNumber(num);
-    const output = this.concatenateNumbers(digits[digitArray[0] - 1], digits[digitArray[1] - 1])
+    const output = this.concatenateMultipleDigitsNumbers(digitArray)
     console.log(output)
     return output;
 
@@ -40,6 +41,14 @@ export class NumberToLcd {
   }
 
 
+  private concatenateMultipleDigitsNumbers(digitArray: number[]): string {
+    let response: string = this.concatenateNumbers(this.digits[digitArray[0]], this.digits[digitArray[1]]);
+    for (let i = 2; i < digitArray.length; i++) {
+      response = this.concatenateNumbers(response, this.digits[digitArray[i]]);
+    }
+
+    return response;
+  }
 
 }
 

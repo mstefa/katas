@@ -42,4 +42,12 @@ describe('test convert to LCD', () => {
 
     expect(recived).toEqual(' _    \n _|  |\n|_   |')
   })
+
+  it('can handle 111', () => {
+    const numberToLcd = new NumberToLcd()
+
+    const recived = numberToLcd.convert(111);
+
+    expect(recived).toEqual('         \n  |  |  |\n  |  |  |')
+  })
 })
