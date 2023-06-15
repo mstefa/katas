@@ -8,7 +8,7 @@ describe('test convert to LCD', () => {
 
     const recived = numberToLcd.convert(1);
 
-    expect(recived).toEqual('\n  |\n  |')
+    expect(recived).toEqual('   \n  |\n  |')
   })
 
   it('can handle 2', () => {
@@ -16,7 +16,7 @@ describe('test convert to LCD', () => {
 
     const recived = numberToLcd.convert(2);
 
-    expect(recived).toEqual(' _ \n _| \n|_')
+    expect(recived).toEqual(' _ \n _|\n|_ ')
   })
 
   it('can handle 11', () => {
@@ -24,7 +24,7 @@ describe('test convert to LCD', () => {
 
     const recived = numberToLcd.convert(11);
 
-    expect(recived).toEqual('\n  |  |\n  |  |')
+    expect(recived).toEqual('      \n  |  |\n  |  |')
   })
 
   it('can handle 12', () => {
@@ -32,6 +32,14 @@ describe('test convert to LCD', () => {
 
     const recived = numberToLcd.convert(12);
 
-    expect(recived).toEqual('    _\n  | _|\n  ||_ ')
+    expect(recived).toEqual('    _ \n  | _|\n  ||_ ')
+  })
+
+  it('can handle 21', () => {
+    const numberToLcd = new NumberToLcd()
+
+    const recived = numberToLcd.convert(21);
+
+    expect(recived).toEqual(' _    \n _|  |\n|_   |')
   })
 })

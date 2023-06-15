@@ -4,26 +4,19 @@ export class NumberToLcd {
 
   convert(num: number) {
 
-    const digits = {
-      1: '\n  |\n  |',
-      2: ' _ \n _| \n|_'
-    }
+    const one = '   \n  |\n  |';
+    const two = ' _ \n _|\n|_ '
+    const digits = [one, two]
 
-    if (num === 1) {
-      return digits[num];
+    if (num < 10) {
+      const output = digits[num - 1];
+      console.log(output)
+      return output;
     }
-
-    if (num === 2) {
-      return digits[num];
-    }
-
-    if (num == 12) {
-      // return '    _\n  | _|\n  ||_ '
-      return this.concatenateNumbers('   \n  |\n  |', ' _ \n _|\n|_ ')
-    }
-
-    // return digits[num];
-    return this.concatenateNumbers('   \n  |\n  |', '\n  |\n  |')
+    const digitArray = this.getEachDigitFromNumber(num);
+    const output = this.concatenateNumbers(digits[digitArray[0] - 1], digits[digitArray[1] - 1])
+    console.log(output)
+    return output;
 
   }
 
@@ -32,11 +25,18 @@ export class NumberToLcd {
     const num2Pice = num2.split('\n')
 
 
-    const array = num1Pice.map(function (value, index) {
+    const array = num1Pice.map((value, index) => {
       return value + num2Pice[index]
     })
 
     return array.join('\n')
+  }
+
+  private getEachDigitFromNumber(number: number): number[] {
+    const numberString = number.toString();
+    const stringArray = numberString.split('');
+    const digitsArray = stringArray.map((e) => parseInt(e))
+    return digitsArray
   }
 
 
