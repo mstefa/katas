@@ -1,23 +1,23 @@
-// import {ohce} from '../src/ohce';
-// import { logger } from '../src/logger';
-// const fs = jest.createMockFromModule('fs');
+import { BirthdayGreetings } from "../src/BirthdayGreetings"
+import { BirthdayRepositoryMock } from "./BirthdayRepositoryMock";
+import { TodayDateRetrieverMock } from "./TodayDateRetrieverMock";
 
+describe('Birthday Greetings', () => {
 
-describe('test ohce', () => {
-
-  test('call with name', () => {
+  test('send a note successfully', () => {
     // Arrage
-    // jest.mock(logger , (name) => void);
+    const birthdayGreetingsRepository = new BirthdayRepositoryMock()
+    const mockedDateRetriever = new TodayDateRetrieverMock()
+    mockedDateRetriever.setMockedDate(new Date())
 
-    // const name = "testName"
-    // ohce(name)
+    const birthdayGreetings = new BirthdayGreetings(birthdayGreetingsRepository, mockedDateRetriever)
 
-    const obj = {
-      a: 2, b: {
-        c: 4
-      }
-    }
-    expect(obj).toEqual({ a: 2, b: { c: 4 } })
+    birthdayGreetings.run();
+
+    expect(2).toEqual(2)
 
   })
-})
+});
+
+
+

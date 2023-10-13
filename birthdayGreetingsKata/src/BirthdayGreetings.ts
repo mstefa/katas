@@ -2,6 +2,11 @@ export interface BirthdayRepository {
   fetch(date: Date): Promise<Friend[]>;
 }
 
+
+export interface DateRetriever {
+  getDate(): Date;
+}
+
 export interface Friend {
   lastName: string,
   firstName: string,
@@ -10,13 +15,16 @@ export interface Friend {
 }
 
 export class BirthdayGreetings {
-  birthdayRepository: BirthdayRepository;
-  constructor(birthdayRepository: BirthdayRepository) {
+  private todayDateRetriever: DateRetriever;
+  private birthdayRepository: BirthdayRepository;
+
+  constructor(birthdayRepository: BirthdayRepository, todayDateRetriever: DateRetriever) {
     this.birthdayRepository = birthdayRepository;
+    this.todayDateRetriever = todayDateRetriever;
   }
 
   async run() {
-    const today = new Date;
+    const today = this.todayDateRetriever.getDate();
     const friendList = await this.birthdayRepository.fetch(today);
     console.log(friendList)
   }
