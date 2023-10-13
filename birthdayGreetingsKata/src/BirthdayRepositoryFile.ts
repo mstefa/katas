@@ -1,5 +1,6 @@
 import * as fs from 'fs';
-import { BirthdayRepository, Friend } from "./BirthdayGreetings";
+import { BirthdayRepository } from "./BirthdayGreetings";
+import { Friend } from "./Friend";
 
 export class BirthdayRepositoryFile implements BirthdayRepository {
   constructor() {
@@ -37,12 +38,12 @@ export class BirthdayRepositoryFile implements BirthdayRepository {
         date.setMonth(parseInt(month));
         date.setDate(parseInt(day));
 
-        const obj = {
-          lastName: values[0],
-          firstName: values[1],
-          date: date,
-          email: values[3],
-        }
+        const obj = new Friend(
+          values[0],
+          values[1],
+          date,
+          values[3],
+        );
 
         objects.push(obj);
       }
