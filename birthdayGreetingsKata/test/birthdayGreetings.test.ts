@@ -1,18 +1,34 @@
 import { BirthdayGreetings, GreetingsSender } from "../src/BirthdayGreetings"
 import { BirthdayRepositoryMock } from "./BirthdayRepositoryMock";
 import { FriendMother } from "./FriendMother";
+import { DateMother } from "./DateMother";
 import { TodayDateRetrieverMock } from "./TodayDateRetrieverMock";
+
+let birthdayGreetingsRepository: BirthdayRepositoryMock;
+let mockedDateRetriever: TodayDateRetrieverMock;
+let greetingsSenderMock: GreetingsSenderMock;
 
 describe('Birthday Greetings', () => {
 
-  test('send a note successfully', async () => {
+  beforeAll(() => {
+    birthdayGreetingsRepository = new BirthdayRepositoryMock()
+    mockedDateRetriever = new TodayDateRetrieverMock()
+    greetingsSenderMock = new GreetingsSenderMock();
+  })
+
+  afterEach(() => {
+    greetingsSenderMock.resetMock()
+    birthdayGreetingsRepository.resetMock();
+    mockedDateRetriever.resetMock();
+  })
+
+  test('send a note successfully when one friend', async () => {
     // Arrage
-    const birthdayGreetingsRepository = new BirthdayRepositoryMock()
-    const mockedDateRetriever = new TodayDateRetrieverMock()
-    const greetingsSenderMock = new GreetingsSenderMock();
-    const friends = FriendMother.random(1);
+    const birthdayDate = DateMother.createDate(15, 5, 1980);
+    const todayDate = DateMother.createDate(15, 5, 2000);
+    const friends = FriendMother.random(1, birthdayDate);
     birthdayGreetingsRepository.setMockedFriends(friends);
-    mockedDateRetriever.setMockedDate(new Date())
+    mockedDateRetriever.setMockedDate(todayDate)
 
     const birthdayGreetings = new BirthdayGreetings(
       birthdayGreetingsRepository,
@@ -20,12 +36,68 @@ describe('Birthday Greetings', () => {
       greetingsSenderMock
     );
 
+    //Act
     await birthdayGreetings.run();
 
-
+    //Assert
     greetingsSenderMock.assertMessagesSended([{
       identification: friends[0].email,
-      messages: friends[0].generateMessage()
+      messages: `Happy birthday, dear ${friends[0].firstName}!`
+    }])
+
+  })
+
+  test('send a note successfully when mare than one friend', async () => {
+    // Arrage
+    const birthdayDate = DateMother.createDate(15, 5, 1980);
+    const todayDate = DateMother.createDate(15, 5, 2000);
+    const friends = FriendMother.random(2, birthdayDate);
+    birthdayGreetingsRepository.setMockedFriends(friends);
+    mockedDateRetriever.setMockedDate(todayDate)
+
+    const birthdayGreetings = new BirthdayGreetings(
+      birthdayGreetingsRepository,
+      mockedDateRetriever,
+      greetingsSenderMock
+    );
+
+    //Act
+    await birthdayGreetings.run();
+
+    //Assert
+    greetingsSenderMock.assertMessagesSended([{
+      identification: friends[0].email,
+      messages: `Happy birthday, dear ${friends[0].firstName}!`
+    },
+    {
+      identification: friends[1].email,
+      messages: `Happy birthday, dear ${friends[1].firstName}!`
+    }])
+
+  })
+
+  test('send a note successfully when one friend when his birthday is the 29 of February', async () => {
+    // Arrage
+    const birthdayDate = DateMother.createDate(29, 2, 1996);
+    const todayDate = DateMother.createDate(28, 2, 2000);
+
+    const friends = FriendMother.random(1, birthdayDate);
+    birthdayGreetingsRepository.setMockedFriends(friends);
+    mockedDateRetriever.setMockedDate(todayDate)
+
+    const birthdayGreetings = new BirthdayGreetings(
+      birthdayGreetingsRepository,
+      mockedDateRetriever,
+      greetingsSenderMock
+    );
+
+    //Act
+    await birthdayGreetings.run();
+
+    //Assert
+    greetingsSenderMock.assertMessagesSended([{
+      identification: friends[0].email,
+      messages: `Happy birthday, dear ${friends[0].firstName}!`
     }])
 
   })
@@ -54,6 +126,9 @@ class GreetingsSenderMock implements GreetingsSender {
     expect(this.greetingSended).toEqual(expected);
   }
 
+  resetMock() {
+    this.greetingSended = [];
+  }
 
 }
 

@@ -14,4 +14,8 @@ export class TodayDateRetrieverMock implements DateRetriever {
   setMockedDate(mockedDate: Date): void {
     this.mockedDate = mockedDate;
   }
+
+  resetMock() {
+    this.mockedDate = new Date();
+  }
 }

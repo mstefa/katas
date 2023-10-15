@@ -5,7 +5,9 @@ export class BirthdayRepositoryMock implements BirthdayRepository {
 
   private mockedFriends: Friend[] = []
 
-  fetch(date: Date): Promise<Friend[]> {
+  fetch(): Promise<Friend[]> {
+
+
     return new Promise((resolve, _) => {
       resolve(this.mockedFriends);
     });
@@ -13,6 +15,10 @@ export class BirthdayRepositoryMock implements BirthdayRepository {
 
   setMockedFriends(friends: Friend[]) {
     this.mockedFriends = friends;
+  }
+
+  resetMock() {
+    this.mockedFriends = [];
   }
 
 }

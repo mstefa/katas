@@ -1,7 +1,7 @@
 import { Friend } from "./Friend";
 
 export interface BirthdayRepository {
-  fetch(date: Date): Promise<Friend[]>;
+  fetch(): Promise<Friend[]>;
 }
 
 export interface DateRetriever {
@@ -40,10 +40,32 @@ export class BirthdayGreetings {
 
   async run() {
     const today = this.todayDateRetriever.getDate();
-    const friendList = await this.birthdayRepository.fetch(today);
-    console.log(friendList)
-    friendList.forEach((friend: Friend, _) => {
+    const friendList = await this.birthdayRepository.fetch();
+    let todayBirthdayList = this.filterDateBirthday(friendList, today.getDate(), today.getMonth())
+
+    if (this.isFebruary28th(today)) {
+      const additionalBirthdayList = this.filterDateBirthday(friendList, 29, 1)
+      todayBirthdayList = todayBirthdayList.concat(additionalBirthdayList);
+    }
+
+    todayBirthdayList.forEach((friend: Friend, _) => {
       this.emailGreetingsSender.send(friend.email, friend.generateMessage())
     })
+  }
+
+  private filterDateBirthday(friendList: Friend[], day: number, month: number) {
+
+    return friendList.filter((friend) => {
+      return (
+        day === friend.birthdayDate.getDate() &&
+        month === friend.birthdayDate.getMonth()
+      )
+    })
+
+  }
+
+
+  private isFebruary28th(date: Date): boolean {
+    return date.getMonth() === 1 && date.getDate() === 28;
   }
 }

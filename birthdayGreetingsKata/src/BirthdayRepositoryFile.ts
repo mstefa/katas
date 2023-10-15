@@ -6,8 +6,7 @@ export class BirthdayRepositoryFile implements BirthdayRepository {
   constructor() {
   }
 
-  fetch(date: Date): Promise<Friend[]> {
-    console.log(date)
+  fetch(): Promise<Friend[]> {
     let fileData
     try {
       const filename = '/Users/mstefanutti/personalws/katas/birthdayGreetingsKata/data/birthdays.csv';
@@ -52,4 +51,4 @@ export class BirthdayRepositoryFile implements BirthdayRepository {
 
     return objects;
   }
-}
+
