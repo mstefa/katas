@@ -1,7 +1,3 @@
-// import {ohce} from '../src/ohce';
-// import { logger } from '../src/logger';
-// const fs = jest.createMockFromModule('fs');
-
 import { ChristmasLights } from "../src/ChristmasLights";
 
 

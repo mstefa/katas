@@ -1,4 +1,4 @@
-import { BirthdayGreetings } from "./ChristmasLights"
+import { ChristmasLights } from "./ChristmasLights"
 
-const christmasLights = new ChristmasLightss()
-christmasLights.run()
+const christmasLights = new ChristmasLights(1000, 1000)
+christmasLights.getNumberOfLightOff()
