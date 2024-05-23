@@ -28,24 +28,24 @@ export class ChristmasLights {
   }
 
   public turnOn(fromX: number, fromY: number, toX: number, toY: number): void {
-    for (let x = fromX - 1; x < toX; x++) {
-      for (let y = fromY - 1; y < toY; y++) {
+    for (let x = fromX; x <= toX; x++) {
+      for (let y = fromY; y <= toY; y++) {
         this.lights[x][y] = 1;
       }
     }
   }
 
   public turnOff(fromX: number, fromY: number, toX: number, toY: number): void {
-    for (let x = fromX - 1; x < toX; x++) {
-      for (let y = fromY - 1; y < toY; y++) {
+    for (let x = fromX; x <= toX; x++) {
+      for (let y = fromY; y <= toY; y++) {
         this.lights[x][y] = 0;
       }
     }
   }
 
   public toggle(fromX: number, fromY: number, toX: number, toY: number): void {
-    for (let x = fromX - 1; x < toX; x++) {
-      for (let y = fromY - 1; y < toY; y++) {
+    for (let x = fromX; x <= toX; x++) {
+      for (let y = fromY; y <= toY; y++) {
         this.lights[x][y] = this.lights[x][y] ? 0 : 1;
       }
     }

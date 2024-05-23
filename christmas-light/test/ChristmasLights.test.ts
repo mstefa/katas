@@ -11,21 +11,21 @@ describe('ChristmasLights', () => {
 
   test('turn the first light', () => {
     const christmasLights = new ChristmasLights(10, 10);
-    christmasLights.turnOn(1, 1, 1, 1)
+    christmasLights.turnOn(0, 0, 0, 0)
     expect(christmasLights.lightsGrid()[0][0]).toEqual(1)
   })
 
   test('turn on all lights', () => {
     const christmasLights = new ChristmasLights(10, 10);
-    christmasLights.turnOn(1, 1, 10, 10)
+    christmasLights.turnOn(0, 0, 9, 9)
     const lightOn = christmasLights.getNumberOfLightOn()
     expect(lightOn).toEqual(100)
   })
 
   test('turn off the first light', () => {
     const christmasLights = new ChristmasLights(10, 10);
-    christmasLights.turnOn(1, 1, 10, 10)
-    christmasLights.turnOff(1, 1, 1, 1)
+    christmasLights.turnOn(0, 0, 9, 9)
+    christmasLights.turnOff(0, 0, 0, 0)
     const lightOn = christmasLights.getNumberOfLightOn()
     expect(lightOn).toEqual(99)
     expect(christmasLights.lightsGrid()[0][0]).toEqual(0)
@@ -33,22 +33,22 @@ describe('ChristmasLights', () => {
 
   test('from an off grid, toggle all lights', () => {
     const christmasLights = new ChristmasLights(10, 10);
-    christmasLights.toggle(1, 1, 10, 10)
+    christmasLights.toggle(0, 0, 9, 9)
     const lightOn = christmasLights.getNumberOfLightOn()
     expect(lightOn).toEqual(100)
   })
 
   test('from an off grid, toggle all lights', () => {
     const christmasLights = new ChristmasLights(10, 10);
-    christmasLights.toggle(1, 1, 10, 10)
+    christmasLights.toggle(0, 0, 9, 9)
     const lightOn = christmasLights.getNumberOfLightOn()
     expect(lightOn).toEqual(100)
   })
 
   test('from an on grid, toggle all lights', () => {
     const christmasLights = new ChristmasLights(10, 10);
-    christmasLights.turnOn(1, 1, 10, 10)
-    christmasLights.toggle(1, 1, 10, 10)
+    christmasLights.turnOn(0, 0, 9, 9)
+    christmasLights.toggle(0, 0, 9, 9)
     const lightOn = christmasLights.getNumberOfLightOn()
     expect(lightOn).toEqual(0)
   })
